@@ -1,12 +1,13 @@
 {
   "configurations": [
     {
-      "name": "Python Debugger: Current File (Integrated Terminal)",
+      "name": "Start",
       "type": "debugpy",
       "request": "launch",
       "program": "${workspaceFolder}/src/main.py",
       "console": "integratedTerminal",
-      "args": ["/home/mgloess/Documents/dev/prae-writer/test/data/2026-10.toml"]
+      "args": ["${workspaceFolder}/test/data/2026-10.toml", "~/Documents/out/"],
+      "python": "${workspaceFolder}/venv/bin/python"
     }
   ]
 }

@@ -3,7 +3,6 @@ import datetime
 
 from pathlib import Path
 from dataclasses import dataclass
-from time import daylight
 from typing import List
 
 @dataclass
@@ -28,6 +27,9 @@ class Document:
 
 def read(path:str) -> Document:
     File = Path(path)
+    
+    if not File.exists():
+        raise Exception("Oh nein")
 
     with File.open("rb") as config:
         data = tomllib.load(config)
