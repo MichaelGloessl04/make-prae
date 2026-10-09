@@ -1,0 +1,21 @@
+amount = 500
+
+[[work]]
+day = 3
+role = "coach"
+
+[[work]]
+day = 7
+role = "coach"
+
+[[work]]
+day = 10
+role = "tech"
+
+[[work]]
+day = 17
+role = "coach"
+
+[[work]]
+day = 24
+role = "tech"
