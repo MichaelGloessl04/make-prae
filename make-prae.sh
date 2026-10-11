@@ -1,0 +1,5 @@
+#!/bin/sh
+
+SCRIPT_DIR="$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)"
+
+exec "$SCRIPT_DIR/venv/bin/python" "$SCRIPT_DIR/src/main.py" "$@"

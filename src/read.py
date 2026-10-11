@@ -2,17 +2,29 @@ import tomllib
 import datetime
 
 from pathlib import Path
-from dataclasses import dataclass
-from typing import List
 
-@dataclass
 class Entrie:
+    id: int
     day: int
     activity: str
+    parent_doc: Document
+
+    def __init__(self, id: int, day: int, activity: str, parent_doc: Document) -> None:
+        self.id = id
+        self.day = day
+        self.activity = activity
+        self.parent_doc = parent_doc
+
+    @property
+    def Value(self) -> int:
+        base = self.parent_doc.wage // self.parent_doc.entriesCount
+        remainder = self.parent_doc.wage % self.parent_doc.entriesCount
+
+        return base + (1 if self.id < remainder else 0)
 
 class Document:
     date: datetime.datetime
-    entries: List[Entrie]
+    entries: list[Entrie]
     wage: int
 
     def __init__(self, date:datetime.datetime, wage: int):
@@ -37,11 +49,8 @@ def read(path:str) -> Document:
     date = datetime.datetime.strptime(File.stem, "%Y-%m")
     doc = Document(date, data["wage"])
 
-    for entry in data.get("work", []):
-        doc.entries.append(Entrie(
-                day = entry["day"],
-                activity = entry["role"]
-            ))
+    for i,entry in enumerate(data.get("work", [])):
+        doc.entries.append(Entrie(i, entry["day"], entry["role"], doc))
 
     return doc
     
