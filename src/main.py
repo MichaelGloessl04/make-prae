@@ -3,7 +3,7 @@ import sys
 import shutil
 
 from read import read
-from editOsd import edit
+from edit import edit
 from pathlib import Path
 
 def main():

@@ -3,24 +3,31 @@ import datetime
 
 from pathlib import Path
 
+MILEAGE_RATE = 0.2
+
 class Entrie:
     id: int
     day: int
     activity: str
+    kilometers: int
     parent_doc: Document
 
-    def __init__(self, id: int, day: int, activity: str, parent_doc: Document) -> None:
+    def __init__(self, id: int, day: int, activity: str, parent_doc: Document, kilometer: int | None = None) -> None:
         self.id = id
         self.day = day
         self.activity = activity
         self.parent_doc = parent_doc
+        if kilometer:
+            self.kilometers = kilometer
+        else:
+            kilometer = 0
 
     @property
     def Value(self) -> int:
         base = self.parent_doc.wage // self.parent_doc.entriesCount
         remainder = self.parent_doc.wage % self.parent_doc.entriesCount
 
-        return base + (1 if self.id < remainder else 0)
+        return int(base + (1 if self.id < remainder else 0) + self.kilometers * MILEAGE_RATE)
 
 class Document:
     date: datetime.datetime
@@ -50,7 +57,10 @@ def read(path:str) -> Document:
     doc = Document(date, data["wage"])
 
     for i,entry in enumerate(data.get("work", [])):
-        doc.entries.append(Entrie(i, entry["day"], entry["role"], doc))
+        km = None
+        if "km" in entry:
+            km = entry["km"]
+        doc.entries.append(Entrie(i, entry["day"], entry["role"], doc, km))
 
     return doc
     
