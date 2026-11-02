@@ -5,7 +5,7 @@ from pathlib import Path
 
 MILEAGE_RATE = 0.2
 
-class Entrie:
+class Entry:
     id: int
     day: int
     activity: str
@@ -31,7 +31,7 @@ class Entrie:
 
 class Document:
     date: datetime.datetime
-    entries: list[Entrie]
+    entries: list[Entry]
     wage: int
 
     def __init__(self, date:datetime.datetime, wage: int):
@@ -60,7 +60,7 @@ def read(path:str) -> Document:
         km = None
         if "km" in entry:
             km = entry["km"]
-        doc.entries.append(Entrie(i, entry["day"], entry["role"], doc, km))
+        doc.entries.append(Entry(i, entry["day"], entry["role"], doc, km))
 
     return doc
     

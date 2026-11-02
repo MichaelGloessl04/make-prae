@@ -2,6 +2,7 @@
     "venvPath": ".",
     "venv": "venv",
     "include": ["src"],
+    "stubPath": "typings",
     "executionEnvironments": [
         {
             "root": "src"
